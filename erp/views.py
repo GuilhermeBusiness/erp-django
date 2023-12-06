@@ -1,10 +1,10 @@
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView
 
-from erp.forms import FuncionarioForm
-from erp.models import Funcionario
-
+from erp.forms import FuncionarioForm, ProdutoForm
+from erp.models import Funcionario, Produto
 
 
 class HomeView(TemplateView):
@@ -78,3 +78,13 @@ def atualiza_funcionario(req: HttpRequest, pk: int):
             form.save()
 
             return HttpResponseRedirect(redirect_to=f'/funcionarios/detalhe/{pk}')
+
+
+# Produtos
+
+class ProdutoCreateView(CreateView):
+    template_name = 'erp/produtos/novo.html'
+    model = Produto
+    form_class = ProdutoForm
+    success_url = '/'
+    #success_url = reverse_lazy('erp:home')

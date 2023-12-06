@@ -1,5 +1,5 @@
 from django import forms
-from erp.models import Funcionario
+from erp.models import Funcionario, Produto
 
 '''
 class FuncionarioForm(forms.Form):
@@ -12,7 +12,7 @@ class FuncionarioForm(forms.Form):
 
 
 class FuncionarioForm(forms.ModelForm):
-    class Meta: #Meta é convenção
+    class Meta:  # Meta é convenção
         model = Funcionario
         fields = [
             'nome',
@@ -21,3 +21,13 @@ class FuncionarioForm(forms.ModelForm):
             'email_funcional',
             'remuneracao'
         ]
+
+
+class ProdutoForm(forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = '__all__'
+        labels = {
+            'descricao': 'Descrição',
+            'preco': 'Preço'
+        }
