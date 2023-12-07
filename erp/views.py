@@ -86,5 +86,4 @@ class ProdutoCreateView(CreateView):
     template_name = 'erp/produtos/novo.html'
     model = Produto
     form_class = ProdutoForm
-    success_url = '/'
-    #success_url = reverse_lazy('erp:home')
+    success_url = reverse_lazy('erp:home')
