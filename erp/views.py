@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 
 from erp.forms import FuncionarioForm, ProdutoForm
 from erp.models import Funcionario, Produto
@@ -32,7 +32,7 @@ def cria_funcionario(req: HttpRequest):
             return HttpResponseRedirect(redirect_to='/')
 
 
-def lista_funcionario(req: HttpRequest):
+def lista_funcionarios(req: HttpRequest):
     if req.method == 'GET':
         funcionarios = Funcionario.objects.all()
 
@@ -87,3 +87,9 @@ class ProdutoCreateView(CreateView):
     model = Produto
     form_class = ProdutoForm
     success_url = reverse_lazy('erp:home')
+
+
+class ProdutoListView(ListView):
+    model = Produto
+    template_name = 'erp/produtos/lista.html'
+    context_object_name = 'produtos'
