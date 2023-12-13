@@ -23,6 +23,10 @@
                     <td>{{ produto.nome }}</td>
                     <td>{{ produto.descricao }}</td>
                     <td>{{ produto.preco }}</td>
+                    <td>
+                        <a href="{% url 'erp:atualiza_produto' pk=produto.id %}">Atualizar</a>
+                    </td>
+
                 </tr>
             {% endfor %}
         </tbody>
