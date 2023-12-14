@@ -1,7 +1,7 @@
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView, DeleteView
 
 from erp.forms import FuncionarioForm, ProdutoForm
 from erp.models import Funcionario, Produto
@@ -99,3 +99,29 @@ class ProdutoUpdateView(UpdateView):
     template_name = 'erp/produtos/atualiza.html'
     form_class = ProdutoForm
     success_url = reverse_lazy('erp:lista_produtos')
+
+class ProdutoDetailView(DetailView):
+    model = Produto
+    template_name = 'erp/produtos/detalhe.html'
+    context_object_name = 'produto'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            return None
+
+class ProdutoDeleteView(DeleteView):
+    model = Produto
+    template_name = 'erp/produtos/deleta.html'
+    context_object_name = 'produto'
+    success_url = reverse_lazy('erp:lista_produtos')
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            return None
+
+
+

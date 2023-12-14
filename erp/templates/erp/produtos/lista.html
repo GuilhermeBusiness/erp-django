@@ -25,6 +25,7 @@
                     <td>{{ produto.preco }}</td>
                     <td>
                         <a href="{% url 'erp:atualiza_produto' pk=produto.id %}">Atualizar</a>
+                        <a href="{% url 'erp:deleta_produto' pk=produto.id %}">Deletar</a>
                     </td>
 
                 </tr>
