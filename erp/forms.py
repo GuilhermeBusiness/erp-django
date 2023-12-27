@@ -1,5 +1,5 @@
 from django import forms
-from erp.models import Funcionario, Produto
+from erp.models import Funcionario, Produto, Venda
 
 '''
 class FuncionarioForm(forms.Form):
@@ -29,5 +29,16 @@ class ProdutoForm(forms.ModelForm):
         fields = '__all__'
         labels = {
             'descricao': 'Descrição',
-            'preco': 'Preço'
+            'preco': 'Preço',
+            'data-hora' : 'Data/Hora'
+        }
+
+class VendaForm(forms.ModelForm):
+    class Meta:
+        model = Venda
+        fields = '__all__'
+        labels = {
+            'funcionario': 'Funcinário',
+            'produto': 'Produto',
+
         }

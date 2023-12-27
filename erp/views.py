@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DetailView, DeleteView
 
-from erp.forms import FuncionarioForm, ProdutoForm
-from erp.models import Funcionario, Produto
+from erp.forms import FuncionarioForm, ProdutoForm, VendaForm
+from erp.models import Funcionario, Produto, Venda
 
 
 class HomeView(TemplateView):
@@ -94,11 +94,13 @@ class ProdutoListView(ListView):
     template_name = 'erp/produtos/lista.html'
     context_object_name = 'produtos'
 
+
 class ProdutoUpdateView(UpdateView):
     model = Produto
     template_name = 'erp/produtos/atualiza.html'
     form_class = ProdutoForm
     success_url = reverse_lazy('erp:lista_produtos')
+
 
 class ProdutoDetailView(DetailView):
     model = Produto
@@ -110,6 +112,7 @@ class ProdutoDetailView(DetailView):
             return super().get_object(queryset)
         except Http404:
             return None
+
 
 class ProdutoDeleteView(DeleteView):
     model = Produto
@@ -123,5 +126,45 @@ class ProdutoDeleteView(DeleteView):
         except Http404:
             return None
 
+class VendaListView(ListView):
+    model = Venda
+    template_name = 'erp/vendas/lista.html'
+    context_object_name = 'vendas'
+
+
+class VendaCreateView(CreateView):
+    model = Venda
+    template_name = "erp/vendas/novo.html"
+    success_url = reverse_lazy('erp:home')
+    fields = ['funcionario', 'produto']
+
+class VendaDetailView(DetailView):
+    model = Venda
+    template_name = 'erp/vendas/detalhe.html'
+    context_object_name = 'venda'
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            return None
+
+class VendaUpdateView(UpdateView):
+    model = Venda
+    template_name = 'erp/vendas/atualiza.html'
+    form_class = VendaForm
+    success_url = reverse_lazy('erp:lista_vendas')
+
+class VendaDeleteView(DeleteView):
+    model = Venda
+    template_name = 'erp/vendas/deleta.html'
+    context_object_name = 'venda'
+    success_url = reverse_lazy('erp:lista_vendas')
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Http404:
+            return None
 
 

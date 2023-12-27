@@ -35,6 +35,9 @@ class Funcionario(models.Model):
         blank=False
     )
 
+    def __str__(self):
+        return f"ID {self.id} - {self.nome} {self.sobrenome}"
+
 
 
 
@@ -58,6 +61,9 @@ class Produto(models.Model):
         blank=False
     )
 
+    def __str__(self):
+        return f"ID {self.id} - {self.nome} (Preço: R$ {self.preco})"
+
 
 class Venda(models.Model):
     funcionario = models.ForeignKey(
@@ -73,6 +79,8 @@ class Venda(models.Model):
     data_hora = models.DateTimeField(
         auto_now_add=True
     )
+
+
 
 
 
