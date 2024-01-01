@@ -12,6 +12,10 @@
     <form method="post">
         {% csrf_token %}
 
+         {% if produto.imagem %}
+        <img src="{{produto.imagem.url}}"  alt="{{produto.id}}" width="180px">
+        {% endif %}
+
         <p>Você confirma a deleção do produto: {{ produto.id }} - {{ produto.nome }}</p>
 
         <button type="submit">Confirmar Deleção</button>

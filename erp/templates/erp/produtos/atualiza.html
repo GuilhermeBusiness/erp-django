@@ -7,9 +7,13 @@
 <body>
     <h1>Formulário de Atualização de Produtos</h1>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
 
         {% csrf_token %}
+
+        {% if produto.imagem %}
+        <img src="{{produto.imagem.url}}"  alt="{{produto.id}}" width="180px">
+        {% endif %}
 
         {{ form }}
 

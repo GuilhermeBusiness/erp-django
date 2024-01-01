@@ -61,6 +61,13 @@ class Produto(models.Model):
         blank=False
     )
 
+    imagem = models.ImageField(
+        null = True,
+        blank = True,
+        upload_to = 'imagens-produtos'
+    )
+
+
     def __str__(self):
         return f"ID {self.id} - {self.nome} (Preço: R$ {self.preco})"
 
