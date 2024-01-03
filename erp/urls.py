@@ -1,11 +1,12 @@
 from django.urls import path
 from erp.views import HomeView, cria_funcionario, lista_funcionarios, busca_funcionario_por_id, atualiza_funcionario, \
     ProdutoCreateView, ProdutoListView, ProdutoUpdateView, ProdutoDetailView, ProdutoDeleteView, VendaCreateView, \
-    VendaListView, VendaDetailView, VendaUpdateView, VendaDeleteView
+    VendaListView, VendaDetailView, VendaUpdateView, VendaDeleteView, ErpLoginView, DashboardView, ErpLogoutView
 
 from django.conf import settings
 
 from django.conf.urls.static import static
+
 
 app_name = 'erp'
 
@@ -16,8 +17,18 @@ class ProdutoDeletaView:
 
 urlpatterns = [
 
-    # Funcionários
+    #Home
     path('', HomeView.as_view(), name='home'),
+
+    #Login
+    path('login/', ErpLoginView.as_view(), name='login'),
+    path('logout/', ErpLogoutView.as_view(), name='logout'),
+
+    #Dashboard
+    path('dashboard/',DashboardView.as_view(),name='dashboard'),
+
+    # Funcionários
+
     path('funcionarios/', lista_funcionarios, name='lista_funcionarios'),
     path('funcionarios/novo', cria_funcionario, name='cria_funcionario'),
     path('funcionarios/detalhe/<pk>', busca_funcionario_por_id, name='busca_funcionario_por_id'),
@@ -36,6 +47,7 @@ urlpatterns = [
     path('vendas/detalhe/<pk>', VendaDetailView.as_view(), name='detalhes_venda'),
     path('vendas/atualiza/<pk>', VendaUpdateView.as_view(), name='atualiza_venda'),
     path('vendas/deleta/<pk>', VendaDeleteView.as_view(), name='deleta_venda')
+
 ]
 
 if settings.DEBUG:
